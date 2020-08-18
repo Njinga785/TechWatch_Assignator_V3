@@ -18,6 +18,7 @@ MongoClient.connect(url, { useUnifiedTopology: true }, function (err, client) {
 
     app.use(bodyParser.json());
     app.use(express.urlencoded({ extended: true }));
+  
 
     app.get('/list-student', async function (req, res) {
         let test = await db.collection('studentsTech').find().toArray();
@@ -37,8 +38,13 @@ MongoClient.connect(url, { useUnifiedTopology: true }, function (err, client) {
         })
     })
 
-    app.delete('/list-student', function (req, res) {
-        res.status(200).send('toto');
+    app.delete('/list-student/:name', function (req, res, next) {
+        db.collection('stundentsTech').deleteOne({name: req.params.name}, function (err, result){
+            if(err) throw err;
+            console.log("1 document deleted");
+            res.send("OK");
+        })
+        res.redirect('/list-student');
     })
 
 })
