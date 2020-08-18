@@ -5,8 +5,9 @@ const ejs = require('ejs');
 const fs = require('fs');
 const bodyParser = require('body-parser');
 const { response } = require('express');
+const methodOverride = require('method-override');  
 
-
+app.use(methodOverride('_method'));
 app.set('view-engine', 'ejs');
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -46,6 +47,27 @@ app.post('/list-student', async function (req, res) {
     res.redirect('/list-student');
 });
 
+app.post("/list-student/delete", async function (req, res) {
+    console.log(req.body.name)
+    await fetch('http://localhost:8002/list-student', {
+        method: 'DELETE',
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ name: req.body.name })
+    })
+        .then(function (response) {
+            return response.json();
+        })
+        .then(function (success) {
+            console.log('Request success: ', success);
+        })
+        .catch(function (error) {
+            console.log('Request failure: ', error);
+        });
+    res.redirect('/list-student');
+});
 
 
 

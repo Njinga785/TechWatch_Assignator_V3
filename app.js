@@ -6,6 +6,8 @@ const port = process.env.PORT || 8002;
 const fetch = require('node-fetch');
 const fs = require('fs');
 const bodyParser = require('body-parser');
+const methodOverride = require('method-override');  
+app.use(methodOverride('_method'));
 let db;
 const dbName = 'dbwatchassign';
 let studentTab = [];
@@ -38,13 +40,12 @@ MongoClient.connect(url, { useUnifiedTopology: true }, function (err, client) {
         })
     })
 
-    app.delete('/list-student/:name', function (req, res, next) {
-        db.collection('stundentsTech').deleteOne({name: req.params.name}, function (err, result){
-            if(err) throw err;
+    app.delete('/list-student', function (req, res) {
+        console.log(req.body.name);
+        db.collection('studentsTech').deleteOne({name: req.body.name}, function (err, result){
             console.log("1 document deleted");
-            res.send("OK");
+            res.status(200).send("OK");
         })
-        res.redirect('/list-student');
     })
 
 })
