@@ -10,7 +10,11 @@ app.set('view-engine', 'ejs');
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-app.get('/list-student', function (req, res) {
+app.get('/list-student', async function (req, res) {
+    await fetch('http://localhost:8002/list-student')
+    .then(response => response.json())
+    .then(json => console.log(json))
+    .catch(error => console.log('error', error))
     res.setHeader('Content-type', 'text/html;charset=UTF-8');
     res.render('index.ejs');
 })
@@ -39,12 +43,13 @@ app.post('/list-student', async function (req, res) {
 
 //Récupération de la liste des étudiants 
 
-app.get('/list-student', async function (req, res) {
-    await fetch('http://localhost:8002/list-student')
-        .then(response => response.json())
-        .then(json => console.log(json))
-        .catch(error => console.log('error', error))
-})
+// app.get('/list-student', async function (req, res) {
+//     console.log('toto');
+//     await fetch('http://localhost:8002/list-student')
+//         .then(response => response.json())
+//         .then(json => console.log(json))
+//         .catch(error => console.log('error', error))
+// })
 
 app.listen(8003, () => {
     console.log('server listening on port 8003')
