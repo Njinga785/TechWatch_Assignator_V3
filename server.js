@@ -4,20 +4,18 @@ const fetch = require('node-fetch');
 const ejs = require('ejs');
 const fs = require('fs');
 const bodyParser = require('body-parser');
-app.set('views', path.join(__dirname, 'views'));
+
 
 app.set('view-engine', 'ejs');
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-app.get('/list-student',  function(req, res) {
+app.get('/list-student', function (req, res) {
     res.setHeader('Content-type', 'text/html;charset=UTF-8');
     res.render('index.ejs');
 })
 
-
-
-
+//insertion des noms des étudiants dans la base de données
 app.post('/list-student', async function (req, res) {
     fetch('http://localhost:8002/list-student', {
         method: 'POST',
@@ -39,6 +37,15 @@ app.post('/list-student', async function (req, res) {
     res.redirect('/list-student');
 });
 
-app.listen(8002, () => {
-    console.log('server app listening on port 8002')
+//Récupération de la liste des étudiants 
+
+app.get('/list-student', async function (req, res) {
+    await fetch('http://localhost:8002/list-student')
+        .then(response => response.json())
+        .then(json => console.log(json))
+        .catch(error => console.log('error', error))
+})
+
+app.listen(8003, () => {
+    console.log('server listening on port 8003')
 });
