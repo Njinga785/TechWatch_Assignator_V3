@@ -9,13 +9,13 @@ const { response } = require('express');
 const methodOverride = require('method-override');
 
 app.use(methodOverride('_method'));
-app.set('view-engine', 'ejs');
+app.set('view engine', 'ejs');
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 //STUDENTS//
 
-//GET STUDENTS
+//GET STUDENTS/pages
 app.get('/list-student', async function (req, res) {
     let addStudent;
     await fetch('http://localhost:8002/list-student')
@@ -23,9 +23,10 @@ app.get('/list-student', async function (req, res) {
         .then(json => addStudent = json)
         .catch(error => console.log('error', error))
     res.setHeader('Content-type', 'text/html;charset=UTF-8');
-    const ejs_file = fs.readFileSync(__dirname + '/views/pages/index.ejs', 'utf-8');
-    const html = ejs.render(ejs_file, { newStudent: addStudent, newProject: [] })
-    res.send(html);
+    //const ejs_file = fs.readFileSync(__dirname + '/views/index.ejs', 'utf-8');
+    //const html = ejs.render(ejs_file, { newStudent: addStudent, newProject: [] })
+    res.render('./pages/index.ejs', { newStudent: addStudent, newProject: [] });
+    //res.send(html);
 })
 
 //POST STUDENTS
@@ -99,7 +100,7 @@ app.post('/list-project', async function (req, res) {
     res.redirect('/list-project');
 });
 
-//GET PROJECT 
+//GET PROJECT
 
 app.get('/list-project', async function (req, res) {
     let addProject;
@@ -110,8 +111,9 @@ app.get('/list-project', async function (req, res) {
     res.setHeader('Content-type', 'text/html;charset=UTF-8');
     const ejs_file = fs.readFileSync(__dirname + '/views/pages/index.ejs', 'utf-8');
     console.log(addProject);
-    const html = ejs.render(ejs_file, { newProject: addProject, newStudent: []})
-    res.send(html);
+    // const html = ejs.render(ejs_file, { newProject: addProject, newStudent: []})
+    // res.send(html);
+    res.render('./pages/index.ejs', { newProject: addProject, newStudent: []});
 })
 
 
