@@ -87,7 +87,8 @@ app.post('/assignation-project', async function (req, res) {
     //console.log(studentsListJs);
     let aleaListStudents = studentsListJs.sort(() => Math.random() - 0.5);
     let aleaListStudentsNbr = aleaListStudents.slice(0, req.body.nbr); 
-    console.log(aleaListStudentsNbr); // nombre aléatoire d'étudiants
+    console.log(aleaListStudentsNbr[0].name); // nom aléatoire d'étudiants en fonction du nombre (nbr)
+    //console.log(JSON.stringify(aleaListStudentsNbr));
     console.log(req.body.subject); // Sujet saisi
     await fetch('http://localhost:8002/list-project', {
         method: 'POST',
@@ -95,8 +96,9 @@ app.post('/assignation-project', async function (req, res) {
             'Accept': 'application/json',
             'Content-Type': 'application/json'
         },
-        body: JSON.stringify({ subject: req.body.subject, students: aleaListStudentsNbr.name })
+        body: JSON.stringify({ subject: req.body.subject, students: aleaListStudentsNbr, date:req.body.date })
     })
+        
         .then(function (response) {
             return response.json();
         })
@@ -116,7 +118,7 @@ app.post('/assignation-project', async function (req, res) {
 app.get('/assignation-project', async function (req, res) {
     let studentsList = await fetch('http://localhost:8002/list-student');
     let studentsListJs = await studentsList.json();
-    console.log(studentsListJs);
+    //console.log(studentsListJs);
     let addProject;
     await fetch('http://localhost:8002/list-project')
         .then(response => response.json())

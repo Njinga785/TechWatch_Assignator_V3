@@ -1,28 +1,32 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>assignation</title>
 </head>
+
 <body>
     <section>
         <ul>
             <% newProject.forEach(function(project) { %>
             <li><%= project.subject %></li>
+            <li><%= project.date %></li>
+            <li><%= JSON.stringify(project.students) %></li>
             <% }); %>
-            
         </ul>
     </section>
     <section>
         <form action="/assignation-project" method="POST">
-            <label for="insertname" class="label">insert Subject :</label>
-            <input type="text" placeholder="subject" name="subject">
+            <label for="insertname" class="label">Insert Subject :</label>
+            <input type="text" placeholder="Subject" name="subject">
             <input type="text" placeholder="Number Student" name='nbr'>
-            <input type="text" placeholder="Deadline" name='date'>
+            <input type="date" placeholder="Deadline" name='date'>
             <button type="submit">Create Tech-watch</button>
         </form>
     </section>
     <footer></footer>
 </body>
+
 </html>
