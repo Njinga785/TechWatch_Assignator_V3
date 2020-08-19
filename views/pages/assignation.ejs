@@ -6,6 +6,23 @@
     <title>assignation</title>
 </head>
 <body>
-    
+    <section>
+        <ul>
+            <% newProject.forEach(function(project) { %>
+            <li><%= project.subject %></li>
+            <% }); %>
+            
+        </ul>
+    </section>
+    <section>
+        <form action="/assignation-project" method="POST">
+            <label for="insertname" class="label">insert Subject :</label>
+            <input type="text" placeholder="subject" name="subject">
+            <input type="text" placeholder="Number Student" name='nbr'>
+            <input type="text" placeholder="Deadline" name='date'>
+            <button type="submit">Create Tech-watch</button>
+        </form>
+    </section>
+    <footer></footer>
 </body>
 </html>
