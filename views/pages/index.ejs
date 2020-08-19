@@ -2,12 +2,13 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>List Students</title>
-</head>
+  <%- include('../partials/head') %>
+</head> 
 
 <body>
+    <header>
+        
+    </header>
     <section>
         <ul>
             <% newStudent.forEach(function(student) { %>
@@ -27,8 +28,25 @@
             <label for="insertname" class="label">insert Name: </label>
             <input type="text" placeholder="name" name="name">
             <button type="submit">Delete</button>
-         </form>
+        </form>
     </section>
+    <section>
+        <ul>
+            <% newProject.forEach(function(project) { %>
+            <li><%= project.subject %></li>
+            <% }); %>
+        </ul>
+    </section>
+    <section>
+        <form action="/list-project" method="POST">
+            <label for="insertname" class="label">insert Subject :</label>
+            <input type="text" placeholder="subject" name="subject">
+            <button type="submit">Add</button>
+        </form>
+    </section>
+    <footer>
+       
+    </footer>
 </body>
 
 </html>
