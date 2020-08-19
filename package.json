@@ -2,10 +2,10 @@
   "name": "assig3",
   "version": "1.0.0",
   "description": "nodeJs Express MongoDB",
-  "main": "app.js",
+  "main": "api.js",
   "scripts": {
-    "start": "npx nodemon app.js",
-    "dev": "npx nodemon server.js"
+    "api": "npx nodemon api.js",
+    "server": "npx nodemon server.js"
   },
   "repository": {
     "type": "git",
