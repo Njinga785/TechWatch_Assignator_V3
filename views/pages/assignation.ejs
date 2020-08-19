@@ -3,29 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tech watch assignation</title>
+    <title>assignation</title>
 </head>
 <body>
-    <section>
-        <ul>
-            <% groupsAAA.forEach(function(groups) { %>
-            <li>
-                <h4><%= groups.name %>&nbsp(<%= groups.students.length%>)</h4>
-            </li>
-            <% groups.students.forEach(function(student){ %>
-            <li><%= student.name %></li>
-            <% }); %>
-            <% }); %>
-        </ul>
-    </section>
-    <div>
-        <form action="/list-project" method="POST">
-            <label for="insertname" class="label">Insert Name:</label>
-            <input type="text" placeholder="Project Name" name="project">
-            <input type="text" placeholder="Group Members" name='nbr'>
-            <button type="submit">Generate</button>
-        </form>
-    </div>
-    <footer></footer>
+    
 </body>
 </html>

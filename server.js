@@ -13,6 +13,9 @@ app.set('view engine', 'ejs');
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
+//Pour la lecteur des fichiers css
+app.use(express.static(__dirname + '/public'));
+
 //STUDENTS//
 
 //GET STUDENTS/pages
