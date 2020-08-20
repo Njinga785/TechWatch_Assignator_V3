@@ -121,7 +121,7 @@ app.post('/assignation-project', async function (req, res) {
 app.get('/assignation-project', async function (req, res) {
     let studentsList = await fetch('http://localhost:8002/list-student');
     let studentsListJs = await studentsList.json();
-    //console.log(studentsListJs);
+    let nextProject = [];
     let addProject;
     fetch('http://localhost:8002/list-project')
         .then((response) => response.json())

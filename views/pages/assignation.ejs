@@ -5,23 +5,26 @@
     <%- include('../partials/head') %>
 </head>
 
-<body> 
+<body>
     <header>
         <%- include('../partials/header') %>
     </header>
     <section>
-        <ul>
-            <% newProject.forEach(function(project) { %>
-            <li><%= project.subject %></li>
-            <li><%= project.date %></li>
-            <li>
-                <% for(let i=0; i< project.students.length; i++) { %>
-                <%= project.students[i].name %>
+        
+        <ul>    
+        <% newProject.forEach(function(project) { %>
+        <li><%= project.subject %></li>
+        <li><%= project.date %></li>
+        <li>
+            <% for(let i=0; i< project.students.length; i++) { %>
+            <%= project.students[i].name %>
             <% } %>
-            </li>
-            <br/>
-            <% }); %>
-        </ul>
+        </li>
+        <br />
+        <% }); %>
+    </ul>
+
+        
     </section>
     <section>
         <form action="/assignation-project" method="POST">
@@ -35,7 +38,7 @@
     <footer>
         <%- include('../partials/footer') %>
 
-    </footer>
+        </footer>
 </body>
 
 </html>

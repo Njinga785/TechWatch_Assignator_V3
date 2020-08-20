@@ -12,8 +12,7 @@
         <p>Welcome tech-watch user !</p>
     </section>
     <section>
-        <ul>
-            <% for(let i = 0; i < 2; i++) {%>
+        <ul>    
             <% newProject.forEach(function(project) { %>
             <li><%= project.subject %></li>
             <li><%= project.date %></li>
@@ -22,9 +21,8 @@
                 <%= project.students[i].name %>
                 <% } %>
             </li>
-                <br/>
+            <br />
             <% }); %>
-            <% }; %>
         </ul>
     </section>
     <section>
