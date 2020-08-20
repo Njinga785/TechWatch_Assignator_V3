@@ -13,7 +13,7 @@
             <% newProject.forEach(function(project) { %>
             <li><%= project.subject %></li>
             <li><%= project.date %></li>
-            <li><%= JSON.stringify(project.students) %></li>
+            <li><%= project.students.length %></li>
             <% }); %>
         </ul>
     </section>

@@ -87,7 +87,7 @@ app.post('/assignation-project', async function (req, res) {
     //console.log(studentsListJs);
     let aleaListStudents = studentsListJs.sort(() => Math.random() - 0.5);
     let aleaListStudentsNbr = aleaListStudents.slice(0, req.body.nbr); 
-    console.log(aleaListStudentsNbr[0].name); // nom aléatoire d'étudiants en fonction du nombre (nbr)
+    console.log(aleaListStudentsNbr.length); // nom aléatoire d'étudiants en fonction du nombre (nbr)
     //console.log(JSON.stringify(aleaListStudentsNbr));
     console.log(req.body.subject); // Sujet saisi
     await fetch('http://localhost:8002/list-project', {
@@ -120,16 +120,22 @@ app.get('/assignation-project', async function (req, res) {
     let studentsListJs = await studentsList.json();
     //console.log(studentsListJs);
     let addProject;
-    await fetch('http://localhost:8002/list-project')
-        .then(response => response.json())
-        .then(json => addProject = json)
-        .catch(error => console.log('error', error))
+    fetch('http://localhost:8002/list-project')
+        .then((response) => response.json())
+        .then((json) => {
+            addProject = json
+            res.render('./pages/assignation.ejs', { newProject: addProject, newStudent: []});
+
+        })
+        .catch((error) => {
+            console.log('error', error)
+        })
     res.setHeader('Content-type', 'text/html;charset=UTF-8');
     const ejs_file = fs.readFileSync(__dirname + '/views/pages/assignation.ejs', 'utf-8');
     // console.log(addProject);
     // const html = ejs.render(ejs_file, { newProject: addProject, newStudent: []})
     // res.send(html);
-    res.render('./pages/assignation.ejs', { newProject: addProject, newStudent: []});
+    
 })
 
 
