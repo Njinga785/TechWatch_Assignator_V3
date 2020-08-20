@@ -2,12 +2,13 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>assignation</title>
+    <%- include parts/head.ejs %>
 </head>
 
-<body>
+<body> 
+    <header>
+        <%- include parts/header.ejs %>
+    </header>
     <section>
         <ul>
             <% newProject.forEach(function(project) { %>
@@ -26,7 +27,9 @@
             <button type="submit">Create Tech-watch</button>
         </form>
     </section>
-    <footer></footer>
+    <footer>
+        <%- include parts/footer.ejs %>
+    </footer>
 </body>
 
 </html>
