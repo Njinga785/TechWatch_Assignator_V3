@@ -16,6 +16,7 @@
     </section>
     <section>
         <ul>
+            <% for(let i = 0; i < 2; i++) {%>
             <% newProject.forEach(function(project) { %>
             <li><%= project.subject %></li>
             <li><%= project.date %></li>
@@ -26,6 +27,7 @@
             </li>
                 <br/>
             <% }); %>
+            <% }; %>
         </ul>
     </section>
     <section>
