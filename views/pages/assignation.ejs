@@ -13,7 +13,12 @@
             <% newProject.forEach(function(project) { %>
             <li><%= project.subject %></li>
             <li><%= project.date %></li>
-            <li><%= project.students.length %></li>
+            <li>
+                <% for(let i=0; i< project.students.length; i++) { %>
+                <%= project.students[i].name %>
+            <% } %>
+            </li>
+            <br/>
             <% }); %>
         </ul>
     </section>

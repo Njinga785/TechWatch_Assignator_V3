@@ -16,9 +16,11 @@ app.use(bodyParser.urlencoded({ extended: true }));
 //Pour la lecteur des fichiers css
 app.use(express.static(__dirname + '/public'));
 
-//STUDENTS//
 
-//GET STUDENTS/pages
+
+//*************************************** PAGE INDEX.JS *********************************************//
+
+//GET LIST-STUDENTS
 app.get('/list-student', async function (req, res) {
     let addStudent;
     await fetch('http://localhost:8002/list-student')
@@ -32,7 +34,7 @@ app.get('/list-student', async function (req, res) {
     //res.send(html);
 })
 
-//POST STUDENTS
+//POST LIST-STUDENTS
 app.post('/list-student', async function (req, res) {
     fetch('http://localhost:8002/list-student', {
         method: 'POST',
@@ -77,9 +79,10 @@ app.post("/list-student/delete", async function (req, res) {
     res.redirect('/list-student');
 });
 
-//ASSIGNATION PROJECT
+//*************************************** PAGE ASSIGNATION-PROJECT.JS *********************************************//
 
-//ADD PROJECT
+
+//POST ASSIGNATION-PROJECT
 
 app.post('/assignation-project', async function (req, res) {
     let studentsList = await fetch('http://localhost:8002/list-student');
@@ -112,8 +115,8 @@ app.post('/assignation-project', async function (req, res) {
 });
 
 
-//Récupération de la liste des étudiants
-//GET PROJECT
+
+//GET ASSIGNATION-PROJECT
 
 app.get('/assignation-project', async function (req, res) {
     let studentsList = await fetch('http://localhost:8002/list-student');
@@ -139,7 +142,34 @@ app.get('/assignation-project', async function (req, res) {
 })
 
 
+//*************************************** PAGE D'ACCUEIL.JS.JS *********************************************//
 
+//APP.GET
+
+app.get('/accueil', async function (req, res) {
+    let studentsList = await fetch('http://localhost:8002/list-student');
+    let studentsListJs = await studentsList.json();
+    //console.log(studentsListJs);
+    let addProject;
+    fetch('http://localhost:8002/list-project')
+        .then((response) => response.json())
+        .then((json) => {
+            addProject = json
+            res.render('./pages/accueil.ejs', { newProject: addProject, newStudent: []});
+
+        })
+        .catch((error) => {
+            console.log('error', error)
+        })
+    res.setHeader('Content-type', 'text/html;charset=UTF-8');
+    //const ejs_file = fs.readFileSync(__dirname + '/views/pages/assignation.ejs', 'utf-8');
+    // console.log(addProject);
+    // const html = ejs.render(ejs_file, { newProject: addProject, newStudent: []})
+    // res.send(html);
+        
+
+
+})
 
 
 
