@@ -26,6 +26,7 @@ MongoClient.connect(url, { useUnifiedTopology: true }, function (err, client) {
 
     app.get('/list-student', async function (req, res) {
         let test = await db.collection('studentsTech').find().toArray();
+        console.log(test);
         res.json(test);
     })
 

@@ -1,20 +1,35 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<head> 
-    
-  <%- include('../partials/head') %>
-</head> 
+<head>
+    <%- include ('partials/head.ejs') %>
+</head>
 
-<body>
-    <header> 
-        <h1>My Tech-wasch Assignator</h1> 
-        <%- include('../partials/header') %>
+<body> 
+    <header>
+        <%- include ('partials/header.ejs') %>
     </header>
-    
-    
+    <section>
+        <ul>
+            <% newProject.forEach(function(project) { %>
+            <li><%= project.subject %></li>
+            <li><%= project.date %></li>
+            <li><%= project.students.length %></li>
+            <% }); %>
+        </ul>
+    </section>
+    <section>
+        <form action="/assignation-project" method="POST">
+            <label for="insertname" class="label">Insert Subject :</label>
+            <input type="text" placeholder="Subject" name="subject">
+            <input type="text" placeholder="Number Student" name='nbr'>
+            <input type="date" placeholder="Deadline" name='date'>
+            <button type="submit">Create Tech-watch</button>
+        </form>
+    </section>
     <footer>
-        <%- include('../partials/footer') %>
+        <%- include ('partials/footer.ejs') %>
+
     </footer>
 </body>
 
