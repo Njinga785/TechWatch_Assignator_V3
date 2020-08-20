@@ -5,17 +5,7 @@ const fetch = require('node-fetch');
 const ejs = require('ejs');
 const fs = require('fs');
 const bodyParser = require('body-parser');
-<<<<<<< HEAD
 
-
-app.set('view-engine', 'ejs');
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
-
-app.get('/list-student', function (req, res) {
-    res.setHeader('Content-type', 'text/html;charset=UTF-8');
-    res.render('index.ejs');
-=======
 const { response } = require('express');
 const methodOverride = require('method-override');
 
@@ -30,18 +20,20 @@ app.use(express.static(__dirname + '/public'));
 //STUDENTS//
 
 //GET STUDENTS/pages
-app.get('/list-student', async function (req, res) {
+app.get('/list-student', function (req, res) {
     let addStudent;
-    await fetch('http://localhost:8002/list-student')
+    fetch('http://localhost:8002/list-student')
         .then(response => response.json())
-        .then(json => addStudent = json)
+        .then(json => {
+            addStudent = json
+            res.render('./pages/index.ejs', { newStudent: addStudent, newProject: [] });
+        })
         .catch(error => console.log('error', error))
-    res.setHeader('Content-type', 'text/html;charset=UTF-8');
+    // res.setHeader('Content-type', 'text/html;charset=UTF-8');
     //const ejs_file = fs.readFileSync(__dirname + '/views/index.ejs', 'utf-8');
     //const html = ejs.render(ejs_file, { newStudent: addStudent, newProject: [] })
-    res.render('./pages/index.ejs', { newStudent: addStudent, newProject: [] });
+    // res.render('./pages/inedex.ejs', { newStudent: addStudent, newProject: [] });
     //res.send(html);
->>>>>>> b19695fec8a9f9a51b546f06d8ccd9effcd64dba
 })
 
 //POST STUDENTS
@@ -66,16 +58,6 @@ app.post('/list-student', async function (req, res) {
     res.redirect('/list-student');
 });
 
-<<<<<<< HEAD
-//Récupération de la liste des étudiants 
-
-app.get('/list-student', async function (req, res) {
-    await fetch('http://localhost:8002/list-student')
-        .then(response => response.json())
-        .then(json => console.log(json))
-        .catch(error => console.log('error', error))
-})
-=======
 //DELETE STUDENT
 app.post("/list-student/delete", async function (req, res) {
     console.log(req.body.name)
@@ -102,7 +84,6 @@ app.post("/list-student/delete", async function (req, res) {
 //PROJECT
 
 //ADD PROJECT
->>>>>>> b19695fec8a9f9a51b546f06d8ccd9effcd64dba
 
 app.post('/list-project', async function (req, res) {
     console.log(req.body.subject)
