@@ -81,20 +81,28 @@ app.post("/list-student/delete", async function (req, res) {
     res.redirect('/list-student');
 });
 
-//PROJECT
+//ASSIGNATION PROJECT
 
 //ADD PROJECT
 
-app.post('/list-project', async function (req, res) {
-    console.log(req.body.subject)
+app.post('/assignation-project', async function (req, res) {
+    let studentsList = await fetch('http://localhost:8002/list-student');
+    let studentsListJs = await studentsList.json();
+    //console.log(studentsListJs);
+    let aleaListStudents = studentsListJs.sort(() => Math.random() - 0.5);
+    let aleaListStudentsNbr = aleaListStudents.slice(0, req.body.nbr); 
+    console.log(aleaListStudentsNbr[0].name); // nom aléatoire d'étudiants en fonction du nombre (nbr)
+    //console.log(JSON.stringify(aleaListStudentsNbr));
+    console.log(req.body.subject); // Sujet saisi
     await fetch('http://localhost:8002/list-project', {
         method: 'POST',
         headers: {
             'Accept': 'application/json',
             'Content-Type': 'application/json'
         },
-        body: JSON.stringify({ subject: req.body.subject })
+        body: JSON.stringify({ subject: req.body.subject, students: aleaListStudentsNbr, date:req.body.date })
     })
+        
         .then(function (response) {
             return response.json();
         })
@@ -104,24 +112,35 @@ app.post('/list-project', async function (req, res) {
         .catch(function (error) {
             console.log('Request failure: ', error);
         });
-    res.redirect('/list-project');
+    res.redirect('/assignation-project');
 });
 
+
+//Récupération de la liste des étudiants
 //GET PROJECT
 
-app.get('/list-project', async function (req, res) {
+app.get('/assignation-project', async function (req, res) {
+    let studentsList = await fetch('http://localhost:8002/list-student');
+    let studentsListJs = await studentsList.json();
+    //console.log(studentsListJs);
     let addProject;
     await fetch('http://localhost:8002/list-project')
         .then(response => response.json())
         .then(json => addProject = json)
         .catch(error => console.log('error', error))
     res.setHeader('Content-type', 'text/html;charset=UTF-8');
-    const ejs_file = fs.readFileSync(__dirname + '/views/pages/index.ejs', 'utf-8');
-    console.log(addProject);
+    const ejs_file = fs.readFileSync(__dirname + '/views/pages/assignation.ejs', 'utf-8');
+    // console.log(addProject);
     // const html = ejs.render(ejs_file, { newProject: addProject, newStudent: []})
     // res.send(html);
-    res.render('./pages/index.ejs', { newProject: addProject, newStudent: []});
+    res.render('./pages/assignation.ejs', { newProject: addProject, newStudent: []});
 })
+
+
+
+
+
+
 
 
 

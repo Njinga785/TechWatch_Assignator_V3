@@ -32,20 +32,6 @@
             <button type="submit">Delete</button>
         </form>
     </section>
-    <section>
-        <ul>
-            <% newProject.forEach(function(project) { %>
-            <li><%= project.subject %></li>
-            <% }); %>
-        </ul>
-    </section>
-    <section>
-        <form action="/list-project" method="POST">
-            <label for="insertname" class="label">insert Subject :</label>
-            <input type="text" placeholder="subject" name="subject">
-            <button type="submit">Add</button>
-        </form>
-    </section>
     <footer>
         <%- include('../partials/footer') %>
     </footer>
