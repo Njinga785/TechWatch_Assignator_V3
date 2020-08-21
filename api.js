@@ -12,13 +12,12 @@ let db;
 const dbName = 'dbwatchassign';
 let studentTab = [];
 let projectTab = [];
+let studentsWithProject = [];
 
 
 MongoClient.connect(url, { useUnifiedTopology: true }, function (err, client) {
     if (err) throw err;
-    db = client.db(dbName)
-
-
+    db = client.db(dbName);
     app.use(bodyParser.json());
     app.use(express.urlencoded({ extended: true }));
 
@@ -26,15 +25,15 @@ MongoClient.connect(url, { useUnifiedTopology: true }, function (err, client) {
 
     app.get('/list-student', async function (req, res) {
         let test = await db.collection('studentsTech').find().toArray();
-        console.log(test);
+        //sconsole.log(test);
         res.json(test);
     })
 
     app.post('/list-student', async function (req, res) {
-        let student = req.body;
-        studentTab.push(student);
-        console.log(studentTab);
-        db.collection('studentsTech').insertOne(student, function (err, result) {
+        let studentAvailable = req.body;
+        studentTab.push(studentAvailable);
+        //console.log(studentTab);
+        db.collection('studentsTech').insertOne(studentAvailable, function (err, result) {
             if (err) throw err;
             console.log("1 document inserted");
             res.json({
@@ -46,7 +45,7 @@ MongoClient.connect(url, { useUnifiedTopology: true }, function (err, client) {
     //POST DELETE STUDENT
 
     app.delete('/list-student', function (req, res) {
-        console.log(req.body.name);
+        //console.log(req.body.name);
         db.collection('studentsTech').deleteOne({ name: req.body.name }, function (err, result) {
             console.log("1 document deleted");
             res.status(200).send("OK");
@@ -69,7 +68,7 @@ MongoClient.connect(url, { useUnifiedTopology: true }, function (err, client) {
     app.post('/list-project', async function (req, res) {
         let subject = req.body;
         projectTab.push(subject);
-        console.log(projectTab);
+        //console.log(projectTab);
         db.collection('subject').insertOne(subject, function (err, result) {
             if (err) throw err;
             console.log("1 project inserted");
@@ -80,6 +79,15 @@ MongoClient.connect(url, { useUnifiedTopology: true }, function (err, client) {
     })
 })
 
+//CHANGE STATUS
+
+app.get('/change-status/:name', async function (req, res){
+    db.collection('studentsTech').updateOne({ name : req.params.name},{$set: {"statut":false}}, function(err, result){
+        if (err) throw err;
+        console.log("status changed");
+        res.send("OK");
+    });
+});
 
 
 //LISTEN PORT
