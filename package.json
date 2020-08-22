@@ -5,7 +5,8 @@
   "main": "api.js",
   "scripts": {
     "api": "npx nodemon api.js",
-    "server": "npx nodemon server.js"
+    "server": "npx nodemon server.js",
+    "sass":"node-sass -w --output-style compressed public/scss -o public/css"
   },
   "repository": {
     "type": "git",
@@ -24,6 +25,7 @@
     "method-override": "^3.0.0",
     "mongodb": "^3.6.0",
     "node-fetch": "^2.6.0",
+    "node-sass": "^4.14.1",
     "nodemon": "^2.0.4"
   }
 }
