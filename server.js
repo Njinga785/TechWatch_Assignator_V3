@@ -24,7 +24,7 @@ app.get('/list-student', async function (req, res) {
         .then(json => {
             addStudent = json
             //console.log(json)
-            res.render('./pages/index.ejs', { newStudent: addStudent, newProject: [] });
+            res.render('./pages/students.ejs', { newStudent: addStudent, newProject: [] });
         })
         .catch(error => console.log('error', error))
     res.setHeader('Content-type', 'text/html;charset=UTF-8');
@@ -77,11 +77,12 @@ app.post("/list-student/delete", async function (req, res) {
 
 //*************************************** PAGE ASSIGNATION-PROJECT.JS *********************************************//
 
-
+//************************************************************************************//
 //POST ASSIGNATION-PROJECT
+//************************************************************************************//
 
 app.post('/assignation-project', async function (req, res) {
-    let studentsList = await fetch('http://localhost:8002/list-student');
+    let studentsList = await fetch(`http://localhost:8002/list-student/`);
     let studentsListJs = await studentsList.json();
     console.log(studentsListJs);
     let aleaListStudents = studentsListJs.sort(() => Math.random() - 0.5);
@@ -92,9 +93,9 @@ app.post('/assignation-project', async function (req, res) {
     //console.log(aleaListStudentsNbr.length); // nom aléatoire d'étudiants en fonction du nombre (nbr)
     //console.log(aleaListStudentsNbr);
     //console.log(req.body.subject); // Sujet saisi
-    let listStudentsAvailable = aleaListStudentsName.filter(x => studentsListJs.includes(x));
+    //let listStudentsAvailable = aleaListStudentsName.filter(x => studentsListJs.includes(x));
     //console.log(aleaListStudentsNbr);
-    console.log(listStudentsAvailable);
+    //console.log(listStudentsAvailable);
     await fetch('http://localhost:8002/list-project', {
         method: 'POST',
         headers: {
@@ -116,9 +117,9 @@ app.post('/assignation-project', async function (req, res) {
     res.redirect('/assignation-project');
 });
 
-
-
+//************************************************************************************//
 //GET ASSIGNATION-PROJECT
+//************************************************************************************//
 
 app.get('/assignation-project', async function (req, res) {
     let addProject;
@@ -143,10 +144,10 @@ app.get('/assignation-project', async function (req, res) {
 app.get('/accueil', async function (req, res) {
     let addStudent;
     let addProject;
-    let studentsList = await fetch('http://localhost:8002/list-student');
+    let studentsList = await fetch('http://localhost:8002/list-student');  
     let studentsListJs = await studentsList.json();
     let listStudentsAvailable = studentsListJs.filter(available => available.statut == true);
-    console.log(listStudentsAvailable);
+    //console.log(listStudentsAvailable);
     //console.log(studentsListJs);
     let aleaListStudents = studentsListJs.sort(() => Math.random() - 0.5);
     let aleaListStudentsName = aleaListStudents.slice(0, req.body.nbr);
@@ -160,7 +161,6 @@ app.get('/accueil', async function (req, res) {
         .then((response) => response.json())
         .then(json => addProject = json.slice(-2))
         .catch(error => console.log('error', error))
-    console.log(addProject[0].taken)
 
 
     // await fetch('http://localhost:8002/list-student') //List-Students

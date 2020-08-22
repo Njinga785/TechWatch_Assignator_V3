@@ -12,8 +12,9 @@ let db;
 const dbName = 'dbwatchassign';
 let studentTab = [];
 let projectTab = [];
-let studentsWithProject = [];
 
+
+//************************************************************** MONGO CLIENT ************************************************//
 
 MongoClient.connect(url, { useUnifiedTopology: true }, function (err, client) {
     if (err) throw err;
@@ -21,14 +22,16 @@ MongoClient.connect(url, { useUnifiedTopology: true }, function (err, client) {
     app.use(bodyParser.json());
     app.use(express.urlencoded({ extended: true }));
 
-    //POST STUDENT
+
+    //************************************************************** GET ALL STUDENTS ************************************************//
 
     app.get('/list-student', async function (req, res) {
-        let test = await db.collection('studentsTech').find().toArray();
-        //sconsole.log(test);
-        res.json(test);
+        let studenList = await db.collection('studentsTech').find({ statut: true}).toArray();
+        console.log(studenList);
+        res.json(studenList);
     })
 
+    //************************************************************** POST ONE STUDENT ************************************************//
     app.post('/list-student', async function (req, res) {
         let studentAvailable = req.body;
         studentTab.push(studentAvailable);
@@ -42,8 +45,16 @@ MongoClient.connect(url, { useUnifiedTopology: true }, function (err, client) {
         })
     })
 
-    //POST DELETE STUDENT
-
+    //************************************************************** GET LIST STUDENTS ONLY TRUE ************************************************//
+    // app.get('/list-student-true', async function(req, res){
+    //     let studentsTrue = await db.collection('studentsTech').find({ statut: true}).toArray();
+    //     if(error) throw error;
+    //     console.log(studentsTrue); 
+    //     res.json(studentsTrue);
+    // });
+      
+    
+    //************************************************************** POST DELETE STUDENT ************************************************//
     app.delete('/list-student', function (req, res) {
         //console.log(req.body.name);
         db.collection('studentsTech').deleteOne({ name: req.body.name }, function (err, result) {
@@ -52,18 +63,17 @@ MongoClient.connect(url, { useUnifiedTopology: true }, function (err, client) {
         })
     })
 
-    //PROJECT
+    //************************************************************** GET PROJECT ********************************************************//
 
     //GET PROJECT
 
     app.get('/list-project', async function (req, res) {
         let subject = await db.collection('subject').find().toArray();
+        //console.log(subject);
         res.json(subject);
     })
 
-
-
-    //POST PROJECT
+    //************************************************************** POST PROJECT ************************************************//
 
     app.post('/list-project', async function (req, res) {
         let subject = req.body;
@@ -79,18 +89,21 @@ MongoClient.connect(url, { useUnifiedTopology: true }, function (err, client) {
     })
 })
 
-//CHANGE STATUS
+//************************************************************** CHANGE STATUS ************************************************//
 
-app.get('/change-status/:name', async function (req, res){
-    db.collection('studentsTech').updateOne({ name : req.params.name},{$set: {"statut":false}}, function(err, result){
+app.get('/change-status/:name', async function (req, res) {
+    db.collection('studentsTech').updateOne({ name: req.params.name }, { $set: { "statut": false } }, function (err, result) {
         if (err) throw err;
-        console.log("status changed");
-        res.send("OK");
+        console.log("1 status changed");
+        res.send("KO");
     });
 });
+//pour reset la liste = updateMany({},{$set: {"statut":false}}, function(err, result)..
 
 
-//LISTEN PORT
+
+
+//************************************************************** LISTEN PORT ************************************************//
 
 app.listen(port, () => {
     console.log('server is running on port: ' + `${port}`);
