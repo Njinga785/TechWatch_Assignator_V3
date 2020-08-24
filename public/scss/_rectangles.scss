@@ -1,0 +1,10 @@
+
+.rectangle{
+  border: 1px solid black;
+  background-color: white;
+  border-radius: 10px;
+  margin-bottom: 5vh;
+  &--2{
+      padding:6vh;
+  }
+}

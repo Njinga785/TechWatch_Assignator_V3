@@ -1,35 +1,41 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<head> 
-    
-  <%- include('../partials/head') %>
-</head> 
+<head>
+    <%- include('../partials/head') %>
+</head>
 
 <body>
-    <header> 
+    <header>
         <%- include('../partials/header') %>
     </header>
     <section>
-        <ul>
+        <h2 class="text-center mt-3">List of students</h2>
+        <div class="colonnes justify-content-center rectangle rectangle--2">
             <% newStudent.forEach(function(student) { %>
-            <li><%= student.name %></li>
+            <%= student.name %>
             <% }); %>
-        </ul>
+        </div>
     </section>
-    <section>
-        <form action="/list-student" method="post">
-            <label for="insertname" class="label">insert Name: </label>
-            <input type="text" placeholder="name" name="name">
-            <button type="submit">Add</button>
-        </form>
-    </section>
-    <section>
-        <form action="/list-student/delete" method="POST">
-            <label for="insertname" class="label">insert Name: </label>
-            <input type="text" placeholder="name" name="name">
-            <button type="submit">Delete</button>
-        </form>
+    <section class=" text-center section-two-projects section-two-projects--band-list-students">
+        <section class="">
+            <form action="/list-student" method="post">
+                <label for="insertname" class="label">
+                    <p class="p-add-student font-italic">Add Student:</p>
+                </label>
+                <input class="input-list-student" type="text" placeholder="name" name="name">
+                <button class="button button__green" type="submit">Add</button>
+            </form>
+        </section>
+        <section class="">
+            <form action="/list-student/delete" method="POST">
+                <label for="insertname" class="label">
+                    <p class="p-add-student font-italic">Delete Student:</p>
+                </label>
+                <input class="input-list-student" type="text" placeholder="name" name="name">
+                <button class="button button__red" type="submit">Delete</button>
+            </form>
+        </section>
     </section>
     <footer>
         <%- include('../partials/footer') %>

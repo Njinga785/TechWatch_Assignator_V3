@@ -1,0 +1,28 @@
+.btn-secondary {
+  background-color: rgb(167, 187, 199) !important;
+  border-color: rgb(167, 187, 199) !important;
+  border-radius: 0.5rem !important;
+}
+
+
+.button {
+  border: none;
+  border-radius: 1rem;
+  color: white;
+  margin: 1vh 0vh 2vh 1vh;
+  padding: 1vh 20vh 1vh 20vh;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  cursor: pointer;
+  &__red{
+    background-color: red;
+    font-size: 16px;
+    padding: 1vh 20vh 1vh 20vh;
+  }
+  &__green{
+    background-color: #4CAF50;
+    font-size: 16px;
+    padding: 1vh 20vh 1vh 20vh;
+  }
+}
