@@ -10,8 +10,9 @@
 ## General info
 Application exercise allowing us to familiarize ourselves with the creation of routes via node.js and mongodb.
 
-## Screenshots
+## Video
 
+![ezgif com-video-to-gif](https://user-images.githubusercontent.com/57058997/91094814-a4d42380-e65b-11ea-85e4-a9f56a5061f2.gif)
 
 
 
