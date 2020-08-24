@@ -24,7 +24,7 @@ app.get('/list-student', async function (req, res) {
         .then(json => {
             addStudent = json
             //console.log(json)
-            res.render('./pages/students.ejs', { newStudent: addStudent, newProject: [] });
+            res.render('./pages/students.ejs', { newStudent: addStudent, newProject: [] }); //rendu des données via l'input identifié la variable newStudent
         })
         .catch(error => console.log('error', error))
     res.setHeader('Content-type', 'text/html;charset=UTF-8');
@@ -38,7 +38,7 @@ app.post('/list-student', async function (req, res) {
             'Accept': 'application/json',
             'Content-Type': 'application/json'
         },
-        body: JSON.stringify({ name: req.body.name, statut: true })
+        body: JSON.stringify({ name: req.body.name, statut: true }) //envoi des données en JSON des données dans la base des données
     })
         .then(function (response) {
             return response.json();
@@ -82,13 +82,13 @@ app.post("/list-student/delete", async function (req, res) {
 //************************************************************************************//
 
 app.post('/assignation-project', async function (req, res) {
-    let studentsList = await fetch(`http://localhost:8002/list-student/`);
-    let studentsListJs = await studentsList.json();
-    console.log(studentsListJs);
-    let aleaListStudents = studentsListJs.sort(() => Math.random() - 0.5);
-    let aleaListStudentsName = aleaListStudents.slice(0, req.body.nbr);
+    let studentsList = await fetch(`http://localhost:8002/list-student/`); //récupération de la liste des étudiants
+    let studentsListJs = await studentsList.json(); //récupération des données en format js
+    //console.log(studentsListJs);
+    let aleaListStudents = studentsListJs.sort(() => Math.random() - 0.5); //Nouvelle Liste d'étudiants de manière aléatoire
+    let aleaListStudentsName = aleaListStudents.slice(0, req.body.nbr);// Création d'un liste de deux étudiants
     aleaListStudentsName.forEach(element => {
-       fetch(`http://localhost:8002/change-status/${element.name}`)
+       fetch(`http://localhost:8002/change-status/${element.name}`) //Changement du statut de l'étudiant
     });
     //console.log(aleaListStudentsNbr.length); // nom aléatoire d'étudiants en fonction du nombre (nbr)
     //console.log(aleaListStudentsNbr);
@@ -102,8 +102,8 @@ app.post('/assignation-project', async function (req, res) {
             'Accept': 'application/json',
             'Content-Type': 'application/json'
         },
-        body: JSON.stringify({ subject: req.body.subject, students: aleaListStudentsName, date: req.body.date, taken: true })
-    })
+        body: JSON.stringify({ subject: req.body.subject, students: aleaListStudentsName, date: req.body.date, taken: true }) 
+    }) //intégration des données dans la base de données avec des variables définies pour chaque input du html
 
         .then(function (response) {
             return response.json();
@@ -139,7 +139,9 @@ app.get('/assignation-project', async function (req, res) {
 
 //*************************************** PAGE D'ACCUEIL.EJS *********************************************//
 
+//************************************************************************************//
 //APP.GET LIST-PROJECT & LIST STUDENTS
+//************************************************************************************//
 
 app.get('/accueil', async function (req, res) {
     let addStudent;
